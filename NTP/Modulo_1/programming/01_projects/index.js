@@ -1,39 +1,21 @@
 const express = require('express');
 
 //genero una aplicacion express
-const app = express()
+const app = express();
 
-app.get('/', (req, res)=>{
-    res.send("Hola mundo con ExpresJs")
+const{RouterIndex} = require('./routes/index');
 
+app.use("/", RouterIndex);
+// app.use("/user",RouterIndex);
+// app.use("/user/data",RouterIndex);
+// app.use(RouterIndex);
 
-});
+/*
+"/"+ "/"="//"=>"/"
+"/"+"/saludo"= "//saludo"=> "/saludo"
+"/"+"/saludo/:nombre"= "//saludo/:nombre"=> "/saludo/nombre"
+*/
 
-app.get("/saludo",(req,res)=>{
-    //req.query
-    // console.log(req.query);
-    //obtenemos la query del objeto
-    const { 
-        query: {nombre, apellido} 
-    }= req;
-
-    //const nombre = req.query.nombre
-    //const apellido = rec.query.nombre
-
-    res.json({
-        saludo: `hola soy ${nombre} ${apellido}`,
-    });
-})
-
-app.get('/saludo/:nombre', (req, res)=>{
-    const { params: {nombre} } = req
-    //console.log(req.params)
-    // const nombre = req.params.nombre
-
-    res.json({
-       nombre: nombre
-   });
-});
 
 
 app.listen(3000, ()=>{
