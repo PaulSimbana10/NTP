@@ -1,20 +1,22 @@
 //traemos el paquete
 const {Router} = require('express');
-const data = require
+// const data = require("../data.js");
+const{User} = require("../lib/Schema/User");
+const { DataValidator } =require("../middlewares/DataValidator")
 
 //iniciamos router
 const router = Router()
 
 //correccion de los endpoint
 router
-    .get("/", (req, res) => {
-        res.send("Hola mundo con ExpressJs");
+    .get("/",  (req, res) => {
+        res.send("hola mundo con expresJS");
     })
     .get("/users", (req, res) => {
         res.json
         ("Lista de usuarios");
     })
-    .get("/saludo",(req, res) => {
+    .get("/saludo", DataValidator("query", User), (req, res) => {
 
         //console.log(req.query);
         const { query: {nombre, apellido} } = req;
@@ -41,9 +43,4 @@ router
 //crear un nuevo archivo de rutas
 module.exports.RouterIndex = router
 
-// module = {
-//     exports: {
-//         RouterIndex: router
-//     }
-// }
 
